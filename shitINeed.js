@@ -1,11 +1,17 @@
 "use strict";
 
-const timeShit = require('./classes/timeShit');
-const loggingShit = require('./classes/loggingShit');
 const apiShit = require('./classes/apiShit');
+const fnShit = require('./classes/fnShit');
+const loggingShit = require('./classes/loggingShit');
+const mathsShit = require('./classes/mathsShit');
+const stringShit = require('./classes/stringShit');
+const timeShit = require('./classes/timeShit');
 
 module.exports = {
-  timeShit,
-  loggingShit,
   apiShit,
+  fnShit,
+  loggingShit,
+  mathsShit,
+  stringShit,
+  timeShit,
 }
