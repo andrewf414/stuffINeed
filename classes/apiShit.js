@@ -13,6 +13,10 @@ class ApiShit {
     return list.join('&');
   }
 
+  static GET() {
+    // TODO: fetch
+  }
+
   static testFn() {
     console.log('api worked');
   }

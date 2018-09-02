@@ -1,6 +1,7 @@
 "use strict";
 
-class svgShit {
+class domShit {
+  //#region SVG
   // returns cartesian plane points for position on a circle
   static polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
@@ -40,10 +41,27 @@ class svgShit {
     ].join(' ');
     return d;       
   }
-
+  //#endregion
+  
+  //#region DOM MANIPULATION
+  static insertElement(elementType, parent, text = null) {
+    const e = document.createElement(elementType);
+    if (text !== null) {
+      const textNode = document.createTextNode(text);
+      e.appendChild(textNode);
+    }
+    if (typeof(parent) == 'string') {
+      const p = document.getElementById(parent);
+      p.appendChild(e);
+    } else {
+      parent.appendChild(e);
+    }
+  }
+  //#endregion
+  
   static testFn() {
     console.log('svg worked');
   }
 }
 
-module.exports = svgShit;
+module.exports = domShit;

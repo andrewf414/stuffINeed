@@ -1,6 +1,7 @@
 "use strict";
 
 class StringShit {
+  //#region Change Cases
   // Find and replace in a string
   static findAndReplace(pattern, str, replacement) {
     return str.replace(pattern, replacement);
@@ -32,12 +33,16 @@ class StringShit {
     }
     return words.join('');
   }
+  //#endregion
 
-  // base64 encode
-  // node only
-  static base64Encode(str) {
-    return Buffer.from(str, 'utf8').toString('base64');
+  //#region Sentences
+  static truncate(str, maxchars, ellipsis = true) {
+    if (ellipsis) {
+      return str.slice(0,maxchars-3) + '...';
+    }
+    str.slice(0,maxchars);
   }
+  //#endregion
 
   static testFn() {
     console.log('string worked');
