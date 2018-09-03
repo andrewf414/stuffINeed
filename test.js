@@ -1,7 +1,5 @@
 const sin = require('./shitINeed')
 
-const obj = {
-  a:1,
-  b:2,
-  c:3,
-}
+let colour = 'rgb(200,200,200)';
+console.log(sin.domShit.lighter(colour,.2))
+console.log(sin.domShit.darker(colour,.2))

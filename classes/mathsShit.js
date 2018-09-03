@@ -2,14 +2,19 @@
 
 class MathsShit {
 
-  // returns average of an array
-  static avg(arr) {
+  // returns sum of an array
+  static sum(arr) {
     let sum = 0;
     let n=arr.length;
     for (let i=0; i<n; i++) {
       sum+=arr[i];
     }
-    return sum/n;
+    return sum;
+  }
+
+  // returns average of an array
+  static avg(arr) {
+    return this.sum(arr)/arr.length;
   }
 
   //#region STATISTICS

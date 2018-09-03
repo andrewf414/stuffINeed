@@ -29,6 +29,7 @@ class otherShit {
     return newObj;
   }
 
+  // Check for equality including type, object, array
   static isEqual(a, b) {
     if (typeof(a) !== typeof(b)) return false;
     if (typeof(a) === 'object') {
@@ -42,7 +43,7 @@ class otherShit {
         if (a[key] !== b[key]) return false;
       }
     }
-    return true;
+    return a === b;
   }
   
   static copyToClipboard() {
