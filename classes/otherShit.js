@@ -46,8 +46,22 @@ class otherShit {
     return a === b;
   }
   
-  static copyToClipboard() {
-    // TODO: copy to clipboard
+  static copyToClipboard(text) {
+    let content = document.createElement('textarea');
+    content.value = text;
+    content.setAttribute('id', 'tempForCopy');
+    content.setAttribute('readonly', '');
+    document.body.appendChild(content);
+    let copyTextarea = document.querySelector('tempForCopy');
+    copyTextarea.focus();
+    copyTextarea.select();
+    try {
+      let successful = document.execCommand('copy');
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    } finally {
+      document.body.removeChild(content);
+    }
   }
 
   static testFn() {
