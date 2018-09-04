@@ -1,7 +1,7 @@
 "use strict";
 
 class TimeShit {
-  // Returns a date that is days in the past, based off the current UTC time.
+  // Returns a date that is days in the past, based off UTC time.
   static subtractDays(date, days, startOfDay) {
     let timeToSubtract = days * 86400000; // 24 * 60 * 60 * 1000;
     let newDate = new Date(date.valueOf() - timeToSubtract);
@@ -13,7 +13,7 @@ class TimeShit {
     }
   }
 
-  // Returns a date that is days in the future, based off the current UTC time.
+  // Returns a date that is days in the future, based off UTC time.
   static addDays(date, days, startOfDay) {
     let timeToAdd = days * 86400000; // 24 * 60 * 60 * 1000;
     let newDate = new Date(date.valueOf() + timeToAdd);

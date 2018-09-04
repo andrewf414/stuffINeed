@@ -4,8 +4,11 @@
   "description": "",
   "main": "shitINeed.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Andrew Fitzgerald <andrewhfitz@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^23.5.0"
+  }
 }
