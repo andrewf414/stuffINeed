@@ -1,6 +1,9 @@
 "use strict";
 
 class TimeShit {
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
   // Returns a date that is days in the past, based off UTC time.
   static subtractDays(date, days, startOfDay) {
     let timeToSubtract = days * 86400000; // 24 * 60 * 60 * 1000;
@@ -30,7 +33,7 @@ class TimeShit {
     return (endDate.valueOf() - startDate.valueOf()) / 1000;
   }
   static minutesBetween(startDate, endDate) {
-    return this.secondsBetween / 60;
+    return this.secondsBetween(startDate, endDate) / 60;
   }
   static daysBetween(startDate, endDate) {
     return this.minutesBetween(startDate, endDate) / 1440;

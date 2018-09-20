@@ -1,21 +1,29 @@
 "use strict";
 
-const apiShit = require('./classes/apiShit');
-const domShit = require('./classes/domShit');
-const fnShit = require('./classes/fnShit');
-const loggingShit = require('./classes/loggingShit');
-const mathsShit = require('./classes/mathsShit');
-const otherShit = require('./classes/otherShit');
-const stringShit = require('./classes/stringShit');
-const timeShit = require('./classes/timeShit');
+const api = require('./classes/apiShit');
+const colour = require('./classes/colourShit');
+const dom = require('./classes/domShit');
+const fn = require('./classes/fnShit');
+const logging = require('./classes/loggingShit');
+const maths = require('./classes/mathsShit');
+const other = require('./classes/otherShit');
+const sort = require('./classes/sortShit');
+const stats = require('./classes/statsShit');
+const string = require('./classes/stringShit');
+const svg = require('./classes/svgShit');
+const time = require('./classes/timeShit');
 
 module.exports = {
-  apiShit,
-  domShit,
-  fnShit,
-  loggingShit,
-  mathsShit,
-  otherShit,
-  stringShit,
-  timeShit,
+  api,
+  colour,
+  dom,
+  fn,
+  logging,
+  maths,
+  other,
+  sort,
+  stats,
+  string,
+  svg,
+  time,
 }

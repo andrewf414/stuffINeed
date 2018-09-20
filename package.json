@@ -9,6 +9,11 @@
   "author": "Andrew Fitzgerald <andrewhfitz@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^23.5.0"
+    "jest": "^23.5.0",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "d3": "^3.5.5"
   }
 }
