@@ -1,9 +1,6 @@
 "use strict";
 
 class TimeShit {
-  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
   // Returns a date that is days in the past, based off UTC time.
   static subtractDays(date, days, startOfDay) {
     let timeToSubtract = days * 86400000; // 24 * 60 * 60 * 1000;
@@ -94,6 +91,17 @@ class TimeShit {
   static utcToLocal(datetime) {
     let d = new Date(datetime);
   }
+
+  static daysInMonth(month, year) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  static longDay(day) {
+    return this.prototype.days[day];
+  }
 }
+
+TimeShit.prototype.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+TimeShit.prototype.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 module.exports = TimeShit;

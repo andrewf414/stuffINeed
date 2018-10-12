@@ -46,6 +46,7 @@ class otherShit {
     return a === b;
   }
   
+  // Makes and removes a textarea that it places the text in to select and copy it
   static copyToClipboard(text) {
     let content = document.createElement('textarea');
     content.value = text;

@@ -22,3 +22,5 @@ const sin = require('./shitINeed')
 // s = new Date(2018,4,21);
 // e = new Date(2018,5,17);
 // console.log(`${s.toLocaleDateString()} to ${e.toLocaleDateString()} is ${sin.time.daysBetween(s, e)} days`);
+
+
