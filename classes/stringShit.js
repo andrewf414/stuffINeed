@@ -1,12 +1,13 @@
 "use strict";
 
 class StringShit {
-  //#region Change Cases
+  
   // Find and replace in a string
   static findAndReplace(pattern, str, replacement) {
     return str.replace(pattern, replacement);
   }
 
+  //#region Change Cases
   // Convert string to Title Case
   static toTitleCase(str) {
     let words = str.toLowerCase().split(' ');

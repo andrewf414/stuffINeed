@@ -1,6 +1,8 @@
 "use strict";
 
 class TimeShit {
+
+  //#region Add / subtract time
   // Returns a date that is days in the past, based off UTC time.
   static subtractDays(date, days, startOfDay) {
     let timeToSubtract = days * 86400000; // 24 * 60 * 60 * 1000;
@@ -25,6 +27,36 @@ class TimeShit {
     }
   }
 
+  static subtractHours(date, hours) {
+    const timeToAdd = -hours * 3600000;
+    const newDate = new Date(date.valueOf() + timeToAdd);
+
+    return newDate;
+  }
+
+  static addHours(date, hours) {
+    const timeToAdd = hours * 3600000;
+    const newDate = new Date(date.valueOf() + timeToAdd);
+
+    return newDate;
+  }
+
+  static subtractMinutes(date, minutes) {
+    const timeToAdd = -minutes * 60000;
+    const newDate = new Date(date.valueOf() + timeToAdd);
+
+    return newDate;
+  }
+
+  static addMinutes(date, minutes) {
+    const timeToAdd = minutes * 60000;
+    const newDate = new Date(date.valueOf() + timeToAdd);
+
+    return newDate;
+  }
+  //#endregion
+
+  //#region Time between
   // Calculate time between two dates
   static secondsBetween(startDate, endDate) {
     return (endDate.valueOf() - startDate.valueOf()) / 1000;
@@ -83,13 +115,21 @@ class TimeShit {
 
     return timeElapsed;
   }
+  //#endregion
 
-  static testFn() {
-    console.log('time worked');
+  //#region Conversions etc
+  static utcToLocal(datetime) {
+    const offset = new Date().getTimezoneOffset() / 60;
+    const newD = this.subtractHours(datetime, offset);
+   
+    return newD;
   }
 
-  static utcToLocal(datetime) {
-    let d = new Date(datetime);
+  static localToUtc(datetime) {
+    const offset = new Date().getTimezoneOffset() / 60;
+    const newD = this.addHours(datetime, offset);
+   
+    return newD;
   }
 
   static daysInMonth(month, year) {
@@ -99,6 +139,7 @@ class TimeShit {
   static longDay(day) {
     return this.prototype.days[day];
   }
+  //#endregion
 }
 
 TimeShit.prototype.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

@@ -3,6 +3,7 @@
 
 class FinancialShit {
 
+  // Mortgage shit
   static pmt(pv, r, n) {
     return r*pv/(1-Math.pow((1+r),-n));
   }
@@ -57,6 +58,11 @@ class FinancialShit {
 
   static profit(mortgage, salePrice, commissionRate, fees) {
     return salePrice - (salePrice * commissionRate) - mortgage - fees
+  }
+
+  // Other
+  static compoundInterest(principal, rate, npa, years) {
+    return ( principal * ((1+rate/npa)**(npa*years)) );
   }
 
   // Test function

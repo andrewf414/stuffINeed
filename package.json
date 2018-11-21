@@ -1,19 +1,20 @@
 {
   "name": "shitineed",
   "version": "1.0.0",
-  "description": "",
+  "description": "A collection of things that I find useful for work as a full stack dev. Manipulating time and strings, selecting colours, all sorts of things really",
   "main": "shitINeed.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "wp": "npx webpack"
   },
   "author": "Andrew Fitzgerald <andrewhfitz@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^23.5.0",
-    "webpack": "^4.19.1",
-    "webpack-cli": "^3.1.0"
+    "jest": "^23.6.0",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
-    "d3": "^3.5.5"
+    "d3": "^3.5.17"
   }
 }
