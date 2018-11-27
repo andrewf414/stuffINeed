@@ -5,6 +5,7 @@ class FinancialShit {
 
   // Mortgage shit
   static pmt(pv, r, n) {
+    r = r/n;
     return r*pv/(1-Math.pow((1+r),-n));
   }
   
@@ -16,9 +17,10 @@ class FinancialShit {
     let P = 0;
     let i = 0;
     let outstanding = pv;
-    let payment = pay === null ? this.pmt(pv, r, n) : pay;
-    for (let j=0, x = y*26; j<x; j++) {
-      let interest = this.interestOnly(pv, r);
+    let payment = Math.max(pay, this.pmt(pv, r, n*y));
+    // let payment = pay === null ? this.pmt(pv, r, n) : pay;
+    for (let j=0, x = y*n; j<x; j++) {
+      let interest = this.interestOnly(pv, r)/n;
       i += interest;
       P =  P + payment - interest;
       pv = pv - payment + interest;
@@ -28,6 +30,7 @@ class FinancialShit {
       principalPaid:P, 
       interestPaid:i,
       outstanding: outstanding-P,
+      paymentsOf: payment,
     }
   }
 

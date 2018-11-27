@@ -1,5 +1,5 @@
 {
-  "name": "shitineed",
+  "name": "@fitzy/shitineed",
   "version": "1.0.0",
   "description": "A collection of things that I find useful for work as a full stack dev. Manipulating time and strings, selecting colours, all sorts of things really",
   "main": "shitINeed.js",
@@ -9,6 +9,7 @@
   },
   "author": "Andrew Fitzgerald <andrewhfitz@gmail.com>",
   "license": "MIT",
+  "repository": "andrewf414/shitIneed",
   "devDependencies": {
     "jest": "^23.6.0",
     "webpack": "^4.26.0",

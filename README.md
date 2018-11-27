@@ -1,7 +1,8 @@
-
+# :shit: I Need
 This package is a combination of things that I find useful to have, borne out of copying a function or two here and there from one project to another. It's still a work in progress, but I will continue to add to it as I can and need, please feel free to suggest additions that you would like to see.
 
 The package is broken up into a series of classes that are targeted towards being a group of related functions. Currently there are:
+
 1. API - for things useful when working with APIs, like encoding JSON to URL encoded
 2. Colours - converting hex, rgb, hsl, and generating shades of a colour (via hsl)
 3. d3 - a big TODO pile, meant to be to do a few repetative taskss like generating bar chart etc
@@ -17,3 +18,14 @@ The package is broken up into a series of classes that are targeted towards bein
 13. Strings - change case (title, camel, pascal), truncate sentences to a limit with or without ellipsis
 14. SVG - create arcs and wedges with polar coords
 15. Time - add and subtract days from a date, calculate time between dates, days in a month, long day or month name
+
+There are still a number of things that are incomplete (like sort) but already some useful pieces here. I regularly use the time stuff in particular.
+
+### Install
+$ npm i @fitzy/shitineed
+### Usage
+```
+import  *  as  sin  from  '@fitzy/shitineed';
+
+sin.time.localToUtc(some date object);
+```
