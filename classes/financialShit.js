@@ -21,16 +21,24 @@ class FinancialShit {
     return (pv * r);
   }
 
-  static paidOverYears(y, pv, r, n, pay = null) {
+  /**
+   * Calculate how much principal and interest will be paid with regular payments and how much will remain outstanding from principal
+   * @param {*} periodY Years of the calculation
+   * @param {*} y Years of the loan
+   * @param {*} pv Present value (i.e. loan size)
+   * @param {*} r Rate as a decimal
+   * @param {*} n Payments per year (e.g. 12, 26, etc)
+   * @param {*} pay Amount to pay per n. The maximum of this and the required payment will be used
+   */
+  static paidOverYears(periodY, y, pv, r, n, pay) {
     let P = 0;
     let i = 0;
     let outstanding = pv;
-    let payment = Math.max(pay, this.pmt(pv, r, n * y));
-    // let payment = pay === null ? this.pmt(pv, r, n) : pay;
-    for (let j = 0, x = y * n; j < x; j++) {
+    let payment = Math.max(pay, this.pmt(pv, r, n, y));
+    for (let j = 0, x = periodY * n; j < x; j++) {
       let interest = this.interestOnly(pv, r) / n;
       i += interest;
-      P = P + payment - interest;
+      P += (payment - interest);
       pv = pv - payment + interest;
       // if (P >= outstanding) return `Paid fully in ${j/26} years`
     }
