@@ -3,7 +3,12 @@
 class domShit {
 
   //#region DOM MANIPULATION
-  // insert an element, passing either an element of an id for the parent
+   /**
+   * insert an element, passing either an element or an id for the parent
+   * @param elementType - what you want to insert e.g. 'div'
+   * @param parent - what to append to (either element itself or id of parent)
+   * @param text - the inner text of the appended element
+  */
   static insertElement(elementType, parent, text = null) {
     const e = document.createElement(elementType);
     if (text !== null) {

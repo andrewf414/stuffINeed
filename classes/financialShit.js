@@ -4,52 +4,60 @@
 class FinancialShit {
 
   // Mortgage shit
-  static pmt(pv, r, n) {
-    r = r/n;
-    return r*pv/(1-Math.pow((1+r),-n));
+  /**
+  * Calculate interest and principal payment for loan
+  * @param pv - presesnt value
+  * @param r - rate as decimal, i.e. .03 is 3%
+  * @param n - payments per year (i.e. 12 is month, 26 fortnightly etc)
+  * @param y - years of the loan
+  */
+  static pmt(pv, r, n, y) {
+    r = r / n;
+    n = n * y;
+    return r * pv / (1 - Math.pow((1 + r), -n));
   }
-  
+
   static interestOnly(pv, r) {
     return (pv * r);
   }
-   
+
   static paidOverYears(y, pv, r, n, pay = null) {
     let P = 0;
     let i = 0;
     let outstanding = pv;
-    let payment = Math.max(pay, this.pmt(pv, r, n*y));
+    let payment = Math.max(pay, this.pmt(pv, r, n * y));
     // let payment = pay === null ? this.pmt(pv, r, n) : pay;
-    for (let j=0, x = y*n; j<x; j++) {
-      let interest = this.interestOnly(pv, r)/n;
+    for (let j = 0, x = y * n; j < x; j++) {
+      let interest = this.interestOnly(pv, r) / n;
       i += interest;
-      P =  P + payment - interest;
+      P = P + payment - interest;
       pv = pv - payment + interest;
       // if (P >= outstanding) return `Paid fully in ${j/26} years`
     }
     return {
-      principalPaid:P, 
-      interestPaid:i,
-      outstanding: outstanding-P,
+      principalPaid: P,
+      interestPaid: i,
+      outstanding: outstanding - P,
       paymentsOf: payment,
     }
   }
 
   static stampDuty(state, value) {
-    switch(state.toLowerCase()) {
+    switch (state.toLowerCase()) {
       case 'tas':
         const rates = [
-          {low: 0, high: 3000, base: 50, rate: 0, per: 100},
-          {low: 30000, high: 25000, base: 50, rate: 1.75, per: 100},
-          {low: 25000, high: 75000, base: 435, rate: 2.25, per: 100},
-          {low: 75000, high: 200000, base: 1560, rate: 3.5, per: 100},
-          {low: 200000, high: 375000, base: 5935, rate: 4, per: 100},
-          {low: 375000, high: 750000, base: 12935, rate: 4.25, per: 100},
-          {low: 750000, high: Infinity, base: 27810, rate: 4.5, per: 100}
+          { low: 0, high: 3000, base: 50, rate: 0, per: 100 },
+          { low: 30000, high: 25000, base: 50, rate: 1.75, per: 100 },
+          { low: 25000, high: 75000, base: 435, rate: 2.25, per: 100 },
+          { low: 75000, high: 200000, base: 1560, rate: 3.5, per: 100 },
+          { low: 200000, high: 375000, base: 5935, rate: 4, per: 100 },
+          { low: 375000, high: 750000, base: 12935, rate: 4.25, per: 100 },
+          { low: 750000, high: Infinity, base: 27810, rate: 4.5, per: 100 }
         ]
         let duty = 0;
-        for(let i=0, n=rates.length; i<n; i++) {
-          if(value >= rates[i].low && value < rates[i].high) {
-            duty = rates[i].base + Math.ceil((value-rates[i].low)/rates[i].per) * rates[i].rate;
+        for (let i = 0, n = rates.length; i < n; i++) {
+          if (value >= rates[i].low && value < rates[i].high) {
+            duty = rates[i].base + Math.ceil((value - rates[i].low) / rates[i].per) * rates[i].rate;
             break;
           }
         }
@@ -65,7 +73,7 @@ class FinancialShit {
 
   // Other
   static compoundInterest(principal, rate, npa, years) {
-    return ( principal * ((1+rate/npa)**(npa*years)) );
+    return (principal * ((1 + rate / npa) ** (npa * years)));
   }
 
   // Test function
