@@ -1,6 +1,6 @@
 "use strict";
 
-class otherShit {
+class otherStuff {
   /**
    * Returns a new object that deeply copies in any arrays or objects
    * @param {*} obj The object to be copied
@@ -94,4 +94,4 @@ class otherShit {
   }
 }
 
-module.exports = otherShit;
+module.exports = otherStuff;

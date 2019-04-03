@@ -1,6 +1,6 @@
 "use strict";
 
-class StringShit {
+class StringStuff {
   
   // Find and replace in a string
   static findAndReplace(pattern, str, replacement) {
@@ -50,4 +50,4 @@ class StringShit {
   }
 }
 
-module.exports = StringShit;
+module.exports = StringStuff;

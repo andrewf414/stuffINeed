@@ -1,9 +1,9 @@
 
 "use strict";
 
-class FinancialShit {
+class FinancialStuff {
 
-  // Mortgage shit
+  // Mortgage stuff
   /**
   * Calculate interest and principal payment for loan
   * @param pv - presesnt value
@@ -90,4 +90,4 @@ class FinancialShit {
   }
 }
 
-module.exports = FinancialShit;
+module.exports = FinancialStuff;

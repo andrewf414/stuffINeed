@@ -1,6 +1,6 @@
 "use strict";
 
-class TimeShit {
+class TimeStuff {
 
   //#region Add / subtract time
   // Returns a date that is days in the past, based off UTC time.
@@ -146,7 +146,7 @@ class TimeShit {
   //#endregion
 }
 
-TimeShit.prototype.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-TimeShit.prototype.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+TimeStuff.prototype.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+TimeStuff.prototype.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-module.exports = TimeShit;
+module.exports = TimeStuff;

@@ -1,6 +1,6 @@
 "use strict";
 
-class NodeShit {
+class NodeStuff {
   
   // base64 encode
   static base64Encode(str) {
@@ -38,4 +38,4 @@ class NodeShit {
   }
 }
 
-module.exports = NodeShit;
+module.exports = NodeStuff;

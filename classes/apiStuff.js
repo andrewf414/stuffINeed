@@ -1,6 +1,6 @@
 "use strict";
 
-class ApiShit {
+class ApiStuff {
   // Convert JSON to URL encoding, pass the JSON obj as the element
   static JSON_to_URLEncoded(element, key, list) {
     var list = list || [];
@@ -22,4 +22,4 @@ class ApiShit {
   }
 }
 
-module.exports = ApiShit;
+module.exports = ApiStuff;

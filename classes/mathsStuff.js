@@ -1,6 +1,6 @@
 "use strict";
 
-class MathsShit {
+class MathsStuff {
 
   // returns sum of an array
   static sum(arr) {
@@ -63,4 +63,4 @@ class MathsShit {
   }
 }
 
-module.exports = MathsShit;
+module.exports = MathsStuff;
