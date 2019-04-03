@@ -1,21 +1,19 @@
 {
-  "name": "@fitzy/shitineed",
+  "name": "@fitzy/stuffineed",
   "version": "1.0.1",
   "description": "A collection of things that I find useful for work as a full stack dev. Manipulating time and strings, selecting colours, all sorts of things really",
-  "main": "shitINeed.js",
+  "main": "stuffINeed.js",
   "scripts": {
     "test": "jest",
     "wp": "npx webpack"
   },
   "author": "Andrew Fitzgerald <andrewhfitz@gmail.com>",
   "license": "MIT",
-  "repository": "andrewf414/shitIneed",
+  "repository": "andrewf414/stuffIneed",
   "devDependencies": {
     "jest": "^23.6.0",
     "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2"
   },
-  "dependencies": {
-    "d3": "^3.5.17"
-  }
+  "dependencies": {}
 }

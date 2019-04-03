@@ -1,6 +1,6 @@
 "use strict";
 
-class SortShit {
+class SortStuff {
   static bubbleSort(arr, asc=true) {
     const n = arr.length;
     if (asc) {
@@ -80,4 +80,4 @@ class SortShit {
   }
 }
 
-module.exports = SortShit;
+module.exports = SortStuff;

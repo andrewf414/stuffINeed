@@ -1,6 +1,6 @@
 "use strict";
 
-class ColourShit {
+class ColourStuff {
 
   // returns {val: [r/h, g/s, b/l, a], model: rgb/hsl}
   static parseColour(colour) {
@@ -143,4 +143,4 @@ class ColourShit {
   }
 }
 
-module.exports = ColourShit;
+module.exports = ColourStuff;

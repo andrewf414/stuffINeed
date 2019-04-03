@@ -1,6 +1,6 @@
 "use strict";
 
-class svgShit {
+class svgStuff {
   // returns cartesian plane points for position on a circle
   static polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
@@ -42,4 +42,4 @@ class svgShit {
   }
 }
 
-module.exports = svgShit;
+module.exports = svgStuff;

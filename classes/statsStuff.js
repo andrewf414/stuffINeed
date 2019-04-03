@@ -1,6 +1,6 @@
 "use strict";
 
-class StatsShit {
+class StatsStuff {
   // returns median of an array
   static mean(arr) {
     let sum = 0;
@@ -52,4 +52,4 @@ class StatsShit {
   }
 }
 
-module.exports = StatsShit;
+module.exports = StatsStuff;

@@ -1,33 +1,57 @@
 "use strict";
 
-class otherShit {
-  static deepCopyObject(obj) {
-    if (typeof(obj) !== 'object') {
-      return a = obj;
-    }
+class otherStuff {
+  /**
+   * Returns a new object that deeply copies in any arrays or objects
+   * @param {*} obj The object to be copied
+   */
+  static copyObject(obj) {
     let newObj = {};
     for (let key in obj) {
-      newObj[key] = obj[key];
+      if (Array.isArray(obj[key])) {
+        newObj[key] = this.copyArray(obj[key]);
+      } else if (typeof(obj[key]) === 'object' && obj[key] !== null) {
+        newObj[key] = this.copyObject(obj[key]);
+      } else {
+        newObj[key] = obj[key];
+      }
     }
     return newObj;
   }
   
-  // Make a deep copy of an object or array
-  static deepCopy(obj) {
-    const isArray = Array.isArray(obj);
-    if (isArray) {
-      let newArr = [];
-      for (let i=0, n=obj.length; i<n; i++) {
-        newArr.push(this.deepCopyObject(obj[i]));
+  /**
+   * Returns a new array that deeply copies in any arrays or objects
+   * @param {*} arr 
+   */
+  static copyArray(arr) {
+    let newArr = [];
+    for (let i = 0, n = arr.length; i < n; i++) {
+      if (Array.isArray(arr[i])) {
+        newArr.push(this.copyArray(arr[i]));
+      } else if (typeof(arr[i]) === 'object' && arr[i] !== null) {
+        newArr.push(this.copyObject(arr[i]));
+      } else {
+        newArr.push(arr[i]);
       }
-      return newArr;
     }
-    let newObj = {};
-    for (let key in obj) {
-      newObj[key] = obj[key];
-    }
-    return newObj;
+    return newArr;
   }
+  
+  
+  /**
+   * Makes a deep copy of arrays and objects, however nested
+   * @param {*} obj 
+   */
+  static deepCopy(obj) {
+    if (Array.isArray(obj)) {
+      return this.copyArray(obj);
+    } else if (typeof(obj) === 'object' && obj !== null) {
+      return this.copyObject(obj);
+    } else {
+      return obj;
+    }
+  }
+  
 
   // Check for equality including type, object, array
   static isEqual(a, b) {
@@ -70,4 +94,4 @@ class otherShit {
   }
 }
 
-module.exports = otherShit;
+module.exports = otherStuff;

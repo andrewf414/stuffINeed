@@ -1,6 +1,6 @@
 "use strict";
 
-class FunctionShit {
+class FunctionStuff {
   static onceOnly(fn, context) { 
     var result;
     return function() { 
@@ -17,4 +17,4 @@ class FunctionShit {
   }
 }
 
-module.exports = FunctionShit;
+module.exports = FunctionStuff;

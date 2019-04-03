@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './shitINeed.js',
+  entry: './stuffINeed.js',
   output: {
     filename: 'sin.js',
     path: path.resolve(__dirname, 'dist'),

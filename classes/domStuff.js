@@ -1,6 +1,6 @@
 "use strict";
 
-class domShit {
+class domStuff {
 
   //#region DOM MANIPULATION
    /**
@@ -31,4 +31,4 @@ class domShit {
   }
 }
 
-module.exports = domShit;
+module.exports = domStuff;
