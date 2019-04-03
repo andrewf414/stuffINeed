@@ -7,6 +7,11 @@ class NodeShit {
     return Buffer.from(str, 'utf8').toString('base64');
   }
 
+  // base64 decode
+  static base64Decode(str) {
+    return Buffer.from(str, 'base64').toString('utf8');
+  }
+
   static colorize(...args) {
     ({
       black: `\x1b[30m${args.join(' ')}`,
