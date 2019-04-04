@@ -28,3 +28,5 @@ import  *  as  sin  from  '@fitzy/stuffineed';
 
 sin.time.localToUtc(some date object);
 ```
+### Tests
+npm run test

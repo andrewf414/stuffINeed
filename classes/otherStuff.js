@@ -51,24 +51,100 @@ class otherStuff {
       return obj;
     }
   }
-  
 
-  // Check for equality including type, object, array
-  static isEqual(a, b) {
-    if (typeof(a) !== typeof(b)) return false;
-    if (typeof(a) === 'object') {
-      if (Array.isArray(a) && Array.isArray(b)) {
-        if (a.length !== b.length) return false;
-        for (let i=0, n=a.length; i<n; i++) {
-          if (a[i] !== b[i]) return false;
+  
+  //#############################################
+
+  /**
+   * Checks whether two arrays are equal and returns boolean
+   * @param {*} a 
+   * @param {*} b 
+   */
+  static arraysEqual(a, b) {
+    if (a.length !== b.length) return false;
+
+    for (let i = 0, n = a.length; i < n; i++) {
+      if (typeof(a[i]) !== typeof(b[i])) return false;
+
+      if (typeof(a[i]) === 'object') {
+        if (Array.isArray(a[i]) && Array.isArray(b[i])) {
+          if (this.arraysEqual(a[i], b[i])) {
+            continue;
+          } else {
+            return false;
+          }
+        } else {
+          if (this.objectsEqual(a[i], b[i])) {
+            continue;
+          } else {
+            return false;
+          }
         }
-      }
-      for (let key in a) {
-        if (a[key] !== b[key]) return false;
+      } else {
+        if (a[i] !== b[i]) return false;
       }
     }
+
+    return true;
+  }
+
+  /**
+   * Checks whether two objects are equal and returns booolean
+   * @param {*} a Object 1
+   * @param {*} b Object 2
+   */
+  static objectsEqual(a, b) {
+    let aKeys = Object.keys(a);
+    let bKeys = Object.keys(b);
+    
+    if (aKeys.length !== bKeys.length) return false;
+    if (!this.arraysEqual(aKeys.sort(), bKeys.sort())) return false;
+
+    for (let i = 0, n = aKeys.length; i < n; i++) {
+      if (typeof(a[aKeys[i]]) === 'object') {
+        if (Array.isArray(a[aKeys[i]]) && Array.isArray(b[aKeys[i]])) {
+          if (this.arraysEqual(a[aKeys[i]], b[aKeys[i]])) {
+            continue;
+          } else {
+            return false;
+          }
+        } else {
+          if (this.objectsEqual(a[aKeys[i]], b[aKeys[i]])) {
+            continue;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      if (a[aKeys[i]] !== b[aKeys[i]]) return false;
+    }
+
+    return true;
+  }
+
+
+
+  /**
+   * Check for equality between two variables, including nested objects and arrays
+   * @param {*} a 
+   * @param {*} b 
+   */
+  static isEqual(a, b) {
+    if (typeof(a) !== typeof(b)) return false;
+
+    if (typeof(a) === 'object') {
+      if (Array.isArray(a) && Array.isArray(b)) {
+        return this.arraysEqual(a, b);
+      }
+      return this.objectsEqual(a, b);      
+    }
+
     return a === b;
   }
+
+  //#############################################
+
   
   // Makes and removes a textarea that it places the text in to select and copy it
   static copyToClipboard(text) {
@@ -87,10 +163,6 @@ class otherStuff {
     } finally {
       document.body.removeChild(content);
     }
-  }
-
-  static testFn() {
-    console.log('other worked');
   }
 }
 
