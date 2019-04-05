@@ -2,7 +2,6 @@
 
 class domStuff {
 
-  //#region DOM MANIPULATION
    /**
    * insert an element, passing either an element or an id for the parent
    * @param elementType - what you want to insert e.g. 'div'
@@ -22,12 +21,6 @@ class domStuff {
       parent.appendChild(e);
     }
     return e;
-  }
-  //#endregion
-
-
-  static testFn() {
-    console.log('dom worked');
   }
 }
 

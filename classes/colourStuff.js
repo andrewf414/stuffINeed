@@ -2,7 +2,11 @@
 
 class ColourStuff {
 
-  // returns {val: [r/h, g/s, b/l, a], model: rgb/hsl}
+  /**
+   * 
+   * returns {val: [r/h, g/s, b/l, a], model: rgba/hsl}
+   * @param {*} colour A hex, rgba, or hsl colour value
+   */
   static parseColour(colour) {
     let regHexAbbr = /^#([a-f0-9]{3})$/i; // match beginning of string, #, 3 of a-f either case or a number, end of string
     let regHex = /^#([a-f0-9]{6})$/i; // same as above but 6
@@ -13,7 +17,7 @@ class ColourStuff {
     let i, match;
 
     let val = [0, 0, 0, 1];
-    let model = 'rgb';
+    let model = 'rgba';
 
     if ((match = colour.match(regHexAbbr))) {
       match = match[1];
@@ -52,7 +56,12 @@ class ColourStuff {
     };
   }
 
-  // return {h, s, l}
+  /**
+   * Takes rgb value and returns {h, s, l}
+   * @param {*} r red (0-255)
+   * @param {*} g green (0-255)
+   * @param {*} b blue (0-255)
+   */
   static rgbToHsl(r, g, b) {
     r /= 255, g /= 255, b /= 255;
     var max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -72,7 +81,12 @@ class ColourStuff {
     return { h: h, s: s, l: l };
   }
 
-  // returns {r, g, b}
+  /**
+   * Takes hsl value and returns {r, g, b}
+   * @param {*} h Hue (0-360)
+   * @param {*} s Saturation (0-100)
+   * @param {*} l Luminance (0-100)
+   */
   static hslToRgb(h, s, l) {
     var r, g, b;
     if (s == 0) {
@@ -95,18 +109,34 @@ class ColourStuff {
     return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
   }
 
+  /**
+   * Converts 0-255 number to hex value with leading 0 where required for ##
+   * @param {*} c 
+   */
   static componentToHex(c) {
     var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    return hex.length === 1 ? "0" + hex : hex;
   }
-  // returns #rrggbb
+  
+  /**
+   * Converts rgb to hex
+   * returns #rrggbb
+   * @param {*} r red (0-255)
+   * @param {*} g green (0-255)
+   * @param {*} b blue (0-255)
+   */
   static rgbToHex(r, g, b) {
     return "#" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
   }
 
-  // returns {r, g, b}
+  /**
+   * Converts hex to rgb
+   * returns {r, g, b}
+   * @param {*} hex With or withouts # leading character
+   */
   static hexToRgb(hex) {
     if (hex[0] === '#') hex = hex.slice(1);
+    if (hex.length === 3) hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
     var bigint = parseInt(hex, 16);
     var r = (bigint >> 16) & 255;
     var g = (bigint >> 8) & 255;
@@ -114,7 +144,12 @@ class ColourStuff {
     return { r: r, g: g, b: b };
   }
 
-  // returns in the same format as input (rgb or hex)
+  /**
+   * Adjusts a valule to be a percent lighter
+   * returns in the same format as input (rgb or hex)
+   * @param {*} colour 
+   * @param {*} amt Amount as percentage points (0-100)
+   */
   static lighter(colour, amt) {
     let parsed = this.parseColour(colour);
     let rgb, hsl;
@@ -128,6 +163,13 @@ class ColourStuff {
     rgb = this.hslToRgb(hsl.h, hsl.s, hsl.l);
     return `(${rgb.r}, ${rgb.g}, ${rgb.b})`;
   }
+
+  /**
+   * Adjusts a valule to be a percent darker
+   * returns in the same format as input (rgb or hex)
+   * @param {*} colour 
+   * @param {*} amt Amount as percentage points (0-100)
+   */
   static darker(colour, amt) {
     let parsed = this.parseColour(colour);
     let rgb, hsl;

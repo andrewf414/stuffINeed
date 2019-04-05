@@ -17,8 +17,14 @@ class FinancialStuff {
     return r * pv / (1 - Math.pow((1 + r), -n));
   }
 
-  static interestOnly(pv, r) {
-    return (pv * r);
+  /**
+   * Calculate the interest of a value for a period
+   * @param {*} pv Present value
+   * @param {*} r Rate as decimal e.g. 0.05 for 5%
+   * @param {*} n Periods in a year
+   */
+  static interestOnly(pv, r, n) {
+    return (pv * r/n);
   }
 
   /**
@@ -50,6 +56,11 @@ class FinancialStuff {
     }
   }
 
+  /**
+   * Calculates stampy duty payable on property purchase
+   * @param {*} state TAS only currently available
+   * @param {*} value Purchase price or market value if gifted etc
+   */
   static stampDuty(state, value) {
     switch (state.toLowerCase()) {
       case 'tas':
@@ -75,18 +86,26 @@ class FinancialStuff {
     }
   }
 
+  /**
+   * Calculate profit to make on sale of property
+   * @param {*} mortgage Outstanding mortgage
+   * @param {*} salePrice Amount sold for
+   * @param {*} commissionRate Decimal rate paid to agent
+   * @param {*} fees Additional fees such as soliciitor, discharge of mortgage etc
+   */
   static profit(mortgage, salePrice, commissionRate, fees) {
     return salePrice - (salePrice * commissionRate) - mortgage - fees
   }
 
-  // Other
+  /**
+   * Returns total (principal and interest) when compounded over period
+   * @param {*} principal Principal amount at start
+   * @param {*} rate Rate as a decimal
+   * @param {*} npa Payments per year (e.g. 12 for monthly)
+   * @param {*} years Years invested
+   */
   static compoundInterest(principal, rate, npa, years) {
     return (principal * ((1 + rate / npa) ** (npa * years)));
-  }
-
-  // Test function
-  static testFn() {
-    console.log('Financial worked');
   }
 }
 

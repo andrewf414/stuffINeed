@@ -1,7 +1,10 @@
 "use strict";
 
 class StatsStuff {
-  // returns median of an array
+  /**
+   * Returns the mean of an array of numbers
+   * @param {*} arr 
+   */
   static mean(arr) {
     let sum = 0;
     let n=arr.length;
@@ -11,6 +14,10 @@ class StatsStuff {
     return sum/arr.length;
   }
 
+  /**
+   * Returns the median of an array of numbers
+   * @param {*} arr 
+   */
   static median(arr) {
     arr.sort();
     let l = arr.length;
@@ -21,6 +28,10 @@ class StatsStuff {
     }
   }
 
+  /**
+   * Returns the modes of an array of numbers as an array of 1 or more elements
+   * @param {*} arr 
+   */
   static mode(arr) {
     let counts = {};
     let mode = 0;
@@ -36,7 +47,12 @@ class StatsStuff {
     return modes;
   }
 
-  static stddev(arr, isPopulation) {
+  /**
+   * Returns the standard deviation for a sample of population
+   * @param {*} arr Array of numbers
+   * @param {*} isPopulation flag. True if for population or false for a sample. Default is false
+   */
+  static stddev(arr, isPopulation = false) {
     const mean = this.mean(arr);
     const n = arr.length;
     let sum = 0;
@@ -44,11 +60,6 @@ class StatsStuff {
       sum += (arr[i] - mean) ** 2;
     }
     return Math.sqrt(sum/(+n - (isPopulation ? 0 : 1)));
-  }
-
-  // Test function
-  static testFn() {
-    console.log('stats worked');
   }
 }
 

@@ -1,7 +1,12 @@
 "use strict";
 
 class ApiStuff {
-  // Convert JSON to URL encoding, pass the JSON obj as the element
+  /**
+   * Convert JSON to URL encoding
+   * @param {*} element JSON object
+   * @param {*} key 
+   * @param {*} list 
+   */
   static JSON_to_URLEncoded(element, key, list) {
     var list = list || [];
     if (typeof (element) == 'object') {
@@ -15,10 +20,6 @@ class ApiStuff {
 
   static GET() {
     // TODO: fetch
-  }
-
-  static testFn() {
-    console.log('api worked');
   }
 }
 
