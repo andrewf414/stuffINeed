@@ -8,7 +8,10 @@ class StringStuff {
   }
 
   //#region Change Cases
-  // Convert string to Title Case
+  /**
+   * Returns string in Title Case
+   * @param {string} str 
+   */
   static toTitleCase(str) {
     let words = str.toLowerCase().split(' ');
     for (let i=0, n=words.length; i<n; i++) {
@@ -17,7 +20,10 @@ class StringStuff {
     return words.join(' ');
   }
 
-  // Convert string to camelCase
+  /**
+   * Returns string in camelCase
+   * @param {string} str 
+   */
   static toCamelCase(str) {
     let words = str.toLowerCase().split(' ');
     for (let i=1, n=words.length; i<n; i++) {
@@ -26,7 +32,10 @@ class StringStuff {
     return words.join('');
   }
 
-  // Convert string to PascalCase
+  /**
+   * Returns string in PascalCase
+   * @param {string} str 
+   */
   static toPascalCase(str) {
     let words = str.toLowerCase().split(' ');
     for (let i=0, n=words.length; i<n; i++) {
@@ -37,17 +46,21 @@ class StringStuff {
   //#endregion
 
   //#region Sentences
+
+  /**
+   * returns a string truncated to number of chars, including ... if ellipsis is true
+   * @param {string} str 
+   * @param {number} maxchars 
+   * @param {boolean} ellipsis include ... at the end or not default = true
+   */
   static truncate(str, maxchars, ellipsis = true) {
-    if (ellipsis) {
+    if (ellipsis && str.length > maxchars) {
       return str.slice(0,maxchars-3) + '...';
     }
     str.slice(0,maxchars);
   }
-  //#endregion
 
-  static testFn() {
-    console.log('string worked');
-  }
+  //#endregion
 }
 
 module.exports = StringStuff;

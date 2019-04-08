@@ -3,10 +3,16 @@
 class TimeStuff {
 
   //#region Add / subtract time
-  // Returns a date that is days in the past, based off UTC time.
-  static subtractDays(date, days, startOfDay) {
-    let timeToSubtract = days * 86400000; // 24 * 60 * 60 * 1000;
-    let newDate = new Date(date.valueOf() - timeToSubtract);
+
+  /**
+   * Returns a date that is days in the past, based off UTC time.
+   * @param {Date} date Start Date
+   * @param {number} days Number of days to subtract
+   * @param {boolean} startOfDay true (default) set time to midnight, false to maintain time of date
+   */
+  static subtractDays(date, days, startOfDay = true) {
+    const timeToSubtract = days * 86400000; // 24 * 60 * 60 * 1000;
+    const newDate = new Date(date.valueOf() - timeToSubtract);
     
     if(startOfDay) {
       return new Date(newDate.setHours(0,0,0,0));
@@ -15,10 +21,15 @@ class TimeStuff {
     }
   }
 
-  // Returns a date that is days in the future, based off UTC time.
-  static addDays(date, days, startOfDay) {
-    let timeToAdd = days * 86400000; // 24 * 60 * 60 * 1000;
-    let newDate = new Date(date.valueOf() + timeToAdd);
+  /**
+   * Returns a date that is days in the future, based off UTC time.
+   * @param {Date} date Start Date
+   * @param {number} days Days to add
+   * @param {boolean} startOfDay true (default) set time to midnight, false to maintain time of date
+   */
+  static addDays(date, days, startOfDay = true) {
+    const timeToAdd = days * 86400000; // 24 * 60 * 60 * 1000;
+    const newDate = new Date(date.valueOf() + timeToAdd);
     
     if(startOfDay) {
       return new Date(newDate.setHours(0,0,0,0));
@@ -27,6 +38,11 @@ class TimeStuff {
     }
   }
 
+  /**
+   * Subtract hours from a date and return new Date
+   * @param {Date} date 
+   * @param {number} hours 
+   */
   static subtractHours(date, hours) {
     const timeToAdd = -hours * 3600000;
     const newDate = new Date(date.valueOf() + timeToAdd);
@@ -34,6 +50,11 @@ class TimeStuff {
     return newDate;
   }
 
+  /**
+   * Add hours to a date and return new Date
+   * @param {Date} date 
+   * @param {number} hours 
+   */
   static addHours(date, hours) {
     const timeToAdd = hours * 3600000;
     const newDate = new Date(date.valueOf() + timeToAdd);
@@ -41,6 +62,11 @@ class TimeStuff {
     return newDate;
   }
 
+  /**
+   * Subtract minutes from a date and return new Date
+   * @param {Date} date 
+   * @param {number} hours 
+   */
   static subtractMinutes(date, minutes) {
     const timeToAdd = -minutes * 60000;
     const newDate = new Date(date.valueOf() + timeToAdd);
@@ -48,31 +74,73 @@ class TimeStuff {
     return newDate;
   }
 
+  /**
+   * Add minutes to a date and return new Date
+   * @param {Date} date 
+   * @param {number} hours 
+   */
   static addMinutes(date, minutes) {
     const timeToAdd = minutes * 60000;
     const newDate = new Date(date.valueOf() + timeToAdd);
 
     return newDate;
   }
+
   //#endregion
 
   //#region Time between
-  // Calculate time between two dates
+  
+  /**
+   * Returns the complete seconds between two dates
+   * @param {Date} startDate 
+   * @param {Date} endDate 
+   */
   static secondsBetween(startDate, endDate) {
-    return (endDate.valueOf() - startDate.valueOf()) / 1000;
+    return Math.floor((endDate.valueOf() - startDate.valueOf()) / 1000);
   }
+
+  /**
+   * Returns the complete minutes between two dates
+   * @param {Date} startDate 
+   * @param {Date} endDate 
+   */
   static minutesBetween(startDate, endDate) {
-    return this.secondsBetween(startDate, endDate) / 60;
+    return Math.floor(this.secondsBetween(startDate, endDate) / 60);
   }
+
+  /**
+   * Returns the complete days between two dates
+   * @param {Date} startDate 
+   * @param {Date} endDate 
+   */
   static daysBetween(startDate, endDate) {
-    return this.minutesBetween(startDate, endDate) / 1440;
+    return Math.floor(this.minutesBetween(startDate, endDate) / 1440);
   }
+
+  /**
+   * Returns the complete weeks between two dates
+   * @param {Date} startDate 
+   * @param {Date} endDate 
+   */
   static weeksBetween(startDate, endDate) {
-    return this.daysBetween(startDate, endDate) / 7;
+    return Math.floor(this.daysBetween(startDate, endDate) / 7);
   }
+
+  /**
+   * Returns the complete years between two dates
+   * @param {Date} startDate 
+   * @param {Date} endDate 
+   */
   static yearsBetween(startDate, endDate) {
-    return this.daysBetween(startDate, endDate) / 365.25;
+    return Math.floor(this.daysBetween(startDate, endDate) / 365.25);
   }
+
+  /**
+   * Returns the seconds between two dates
+   * {seconds, minutes, hours, days, weeks, years}
+   * @param {Date} startDate 
+   * @param {Date} endDate 
+   */
   static timeBetween(startDate, endDate) {
     let timeElapsed = {
       seconds: this.secondsBetween(startDate, endDate),
@@ -115,9 +183,13 @@ class TimeStuff {
 
     return timeElapsed;
   }
+  
+
   //#endregion
 
   //#region Conversions etc
+
+
   static utcToLocal(datetime) {
     const offset = new Date().getTimezoneOffset() / 60;
     const newD = this.subtractHours(datetime, offset);
@@ -132,17 +204,32 @@ class TimeStuff {
     return newD;
   }
 
+  /**
+   * Returns number of days in the month
+   * @param {number} month 1-12
+   * @param {number} year 
+   */
   static daysInMonth(month, year) {
-    return new Date(year, month + 1, 0).getDate();
+    return new Date(year, month, 0).getDate();
   }
 
+  /**
+   * Returns the long name of a day
+   * @param {number} day index of the week, 0 = Sunday
+   */
   static longDay(day) {
     return this.prototype.days[day];
   }
 
+  /**
+   * Returns a string in format yyyy-mm-ddThh:mm:ss
+   * @param {Date} date 
+   */
   static toDateTimeString(date) {
     return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}T${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
   }
+
+
   //#endregion
 }
 

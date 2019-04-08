@@ -1,7 +1,13 @@
 "use strict";
 
 class svgStuff {
-  // returns cartesian plane points for position on a circle
+  /**
+   * returns cartesian plane points for position on a circle {x, y}
+   * @param {number} centerX position in SVG
+   * @param {number} centerY position in SVG
+   * @param {number} radius radius pixels
+   * @param {number} angleInDegrees 0-360
+   */
   static polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
     return {
@@ -10,12 +16,18 @@ class svgStuff {
     };
   }
 
-  // returns the path for an arc
-  /* example use is:
-    let path = document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttributeNS(null, 'd', describeWedge(centre, centre, radius, angle1, angle2));
-    settings.svg.appendChild(path);
-  */
+  /**
+   * Returns the path for an arc <path>[M, A].
+   * Example use is:
+   * let path = document.createElementNS('http://www.w3.org/2000/svg','path');
+   * path.setAttributeNS(null, 'd', describeWedge(centre, centre, radius, angle1, angle2));
+   * settings.svg.appendChild(path);
+   * @param {number} x centre point of circle
+   * @param {number} y centre point of circle
+   * @param {number} radius radius pixels
+   * @param {number} startAngle start arc on circle
+   * @param {number} endAngle end arc on circle
+   */
   static describeArc(x, y, radius, startAngle, endAngle) {
     var start = this.polarToCartesian(x, y, radius, endAngle);
     var end = this.polarToCartesian(x, y, radius, startAngle);
@@ -27,7 +39,19 @@ class svgStuff {
     return d;
   }
 
-  // Same as describeArc but also draws lines to the arc from the centre point of circle
+  /**
+   * Returns the path for a wedge <path>[M, L, A, L].
+   * Same as describeArc except includes lines to centre of circle
+   * Example use is:
+   * let path = document.createElementNS('http://www.w3.org/2000/svg','path');
+   * path.setAttributeNS(null, 'd', describeWedge(centre, centre, radius, angle1, angle2));
+   * settings.svg.appendChild(path);
+   * @param {number} x centre point of circle
+   * @param {number} y centre point of circle
+   * @param {number} radius radius pixels
+   * @param {number} startAngle start arc on circle
+   * @param {number} endAngle end arc on circle
+   */
   static describeWedge(x, y, radius, startAngle, endAngle) {
     var start = this.polarToCartesian(x, y, radius, endAngle);
     var end = this.polarToCartesian(x, y, radius, startAngle);
