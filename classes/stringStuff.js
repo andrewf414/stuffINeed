@@ -43,6 +43,23 @@ class StringStuff {
     }
     return words.join('');
   }
+
+  /**
+   * Returs string in moCkiNgcAse
+   * @param {string} str 
+   */
+  static toMockingCase(str) {
+    let s = str.split('');
+    for (let i = 0; i < s.length; i++) {
+      if (i % 3 === 0) {
+        s[i] = s[i].toUpperCase();
+      } else {
+        s[i] = s[i].toLowerCase();
+      }
+    }
+    return s;
+  }
+
   //#endregion
 
   //#region Sentences

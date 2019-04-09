@@ -87,16 +87,20 @@ class MathsStuff {
   // TODO: probably need to have a dependency of big-integer.js or something
   /**
    * returns true for a prime, false otherwise
-   * @param {*} n 
+   * @param {number} num
    */
-  static prime(n) {
-    if (n > Number.MAX_SAFE_INTEGER) return 'Number too large';
-    if (n <= 2) return true;
-    let root = Math.floor(Math.sqrt(n));
-    if (this.even(n)) return false;
-    for (let i=3; i<=root; i+=2) {
-      if (n%i == 0) return false;
+  static prime(num) {
+    if (num * 0 !== 0) return false;  // for undefined, NaN etc
+    if (num > Number.MAX_SAFE_INTEGER) return 'Number too large';
+    if (num <= 3) return num > 1;
+    if (num % 2 === 0 || num % 3 === 0) return false;
+
+    for (var i = 5; i * i <= num; i += 6) {
+      if (num % i === 0 || num % (i + 2) === 0) {
+        return false
+      }
     }
+
     return true;
   }
 }

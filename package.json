@@ -1,6 +1,6 @@
 {
   "name": "@fitzy/stuffineed",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A collection of things that I find useful for work as a full stack dev. Manipulating time and strings, selecting colours, all sorts of things really",
   "main": "stuffINeed.js",
   "scripts": {

@@ -143,8 +143,22 @@ class otherStuff {
     return a === b;
   }
 
+  
   //#############################################
 
+  /**
+   * Takes an array of objects and returns an array of distinct values of the given key
+   * @param {[{}]} arr array of objects
+   * @param {*} key key in objects you want array set from
+   */
+  static objArrayToSet(arr, key) {
+    return Array.from(new Set(arr.map(item => item[key])))
+  }
+
+
+
+  //#############################################
+  
   
   // Makes and removes a textarea that it places the text in to select and copy it
   static copyToClipboard(text) {
