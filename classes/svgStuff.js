@@ -64,6 +64,47 @@ class svgStuff {
     ].join(' ');
     return d;
   }
+
+  /**
+   * Returns an SVG path for an arrowhead shape on a circle
+   * @param {number} x circle centre
+   * @param {number} y circle centre
+   * @param {number} radius radius of circle arrow being drawn on
+   * @param {number} arrowAngle how pointy the arrow wiill be
+   * @param {number} tipAngle angle on circle the tip of the arrow will be
+   * @param {boolean} direction true to point away from circle, false point towards centre
+   * @param {number} arrowSize how high the arrow is (in pixels)
+   */
+  createArrow(x, y, radius, arrowAngle, tipAngle, direction, arrowSize) {
+    let radiusFactor = direction ? 1+arrowSize : 1-arrowSize;
+    var tip = this.polarToCartesian(x, y, radius, tipAngle);
+    
+    var line1 = this.polarToCartesian(x, y, radiusFactor*radius, tipAngle-arrowAngle);
+    var line2 = this.polarToCartesian(x, y, radiusFactor*radius, tipAngle+arrowAngle);
+    
+    var d = [
+    'M', line1.x, line1.y,
+    'L', tip.x, tip.y, 
+    'L', line2.x, line2.y
+    ].join(' ');
+    return d;       
+  }
+
+  /**
+   * 
+   * @param {number} cx centre x
+   * @param {number} cy centre y
+   * @param {number} r radius
+   * @param {HTMLElement} container container to attach circle to
+   */
+  createCircle(cx, cy, r, container) {
+    let circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttributeNS(null, 'cx', cx);
+    circle.setAttributeNS(null, 'cy', cy);
+    circle.setAttributeNS(null, 'r', r);
+    circle.setAttributeNS(null, 'style', 'fill: none; stroke: blue; stroke-width: 1px;' );
+    container.appendChild(circle);
+  }
 }
 
 module.exports = svgStuff;
