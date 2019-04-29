@@ -10,8 +10,10 @@ class otherStuff {
     for (let key in obj) {
       if (Array.isArray(obj[key])) {
         newObj[key] = this.copyArray(obj[key]);
-      } else if (typeof(obj[key]) === 'object' && obj[key] !== null) {
+      } else if (Object.prototype.toString.call(obj[key]) === '[object Object]' && obj[key] !== null) {
         newObj[key] = this.copyObject(obj[key]);
+      } else if (Object.prototype.toString.call(obj[key]) === '[object Date]') {
+        newObj[key] = new Date(obj[key]);
       } else {
         newObj[key] = obj[key];
       }
@@ -28,8 +30,10 @@ class otherStuff {
     for (let i = 0, n = arr.length; i < n; i++) {
       if (Array.isArray(arr[i])) {
         newArr.push(this.copyArray(arr[i]));
-      } else if (typeof(arr[i]) === 'object' && arr[i] !== null) {
+      } else if (Object.prototype.toString.call(arr[i]) === '[object Object]' && arr[i] !== null) {
         newArr.push(this.copyObject(arr[i]));
+      } else if (Object.prototype.toString.call(arr[i]) === '[object Date]') {
+        newArr.push(new Date(arr[i]));
       } else {
         newArr.push(arr[i]);
       }
@@ -45,8 +49,10 @@ class otherStuff {
   static deepCopy(obj) {
     if (Array.isArray(obj)) {
       return this.copyArray(obj);
-    } else if (typeof(obj) === 'object' && obj !== null) {
+    } else if (Object.prototype.toString.call(obj) === '[object Object]' && obj !== null) {
       return this.copyObject(obj);
+    } else if (Object.prototype.toString.call(obj) === '[object Date]') {
+      return new Date(obj);
     } else {
       return obj;
     }
@@ -64,27 +70,31 @@ class otherStuff {
     if (a.length !== b.length) return false;
 
     for (let i = 0, n = a.length; i < n; i++) {
-      if (typeof(a[i]) !== typeof(b[i])) return false;
+      if (Object.prototype.toString.call(a[i]) !== Object.prototype.toString.call(b[i])) return false;
 
-      if (typeof(a[i]) === 'object') {
-        if (Array.isArray(a[i]) && Array.isArray(b[i])) {
-          if (this.arraysEqual(a[i], b[i])) {
-            continue;
-          } else {
-            return false;
-          }
+      if (Array.isArray(a[i]) && Array.isArray(b[i])) {
+        if (this.arraysEqual(a[i], b[i])) {
+          continue;
         } else {
-          if (this.objectsEqual(a[i], b[i])) {
-            continue;
-          } else {
-            return false;
-          }
+          return false;
+        }
+      } else if (Object.prototype.toString.call(a[i]) === '[object Object]' && Object.prototype.toString.call(b[i]) === '[object Object]') {
+        if (this.objectsEqual(a[i], b[i])) {
+          continue;
+        } else {
+          return false;
+        }
+      } else if (Object.prototype.toString.call(a[i]) === '[object Date]' && Object.prototype.toString.call(b[i]) === '[object Date]') {
+        if (a[i].valueOf() !== b[i].valueOf()) {
+          return false;
+        } else {
+          continue;
         }
       } else {
         if (a[i] !== b[i]) return false;
+        continue;
       }
     }
-
     return true;
   }
 
@@ -101,25 +111,32 @@ class otherStuff {
     if (!this.arraysEqual(aKeys.sort(), bKeys.sort())) return false;
 
     for (let i = 0, n = aKeys.length; i < n; i++) {
-      if (typeof(a[aKeys[i]]) === 'object') {
-        if (Array.isArray(a[aKeys[i]]) && Array.isArray(b[aKeys[i]])) {
-          if (this.arraysEqual(a[aKeys[i]], b[aKeys[i]])) {
-            continue;
-          } else {
-            return false;
-          }
+      if (Array.isArray(a[aKeys[i]]) && Array.isArray(b[aKeys[i]])) {
+        if (this.arraysEqual(a[aKeys[i]], b[aKeys[i]])) {
+          continue;
         } else {
-          if (this.objectsEqual(a[aKeys[i]], b[aKeys[i]])) {
-            continue;
-          } else {
-            return false;
-          }
+          return false;
+        }
+      } else if (Object.prototype.toString.call(a[aKeys[i]]) === '[object Object]' && Object.prototype.toString.call(b[aKeys[i]]) === '[object Object]') {
+        if (this.objectsEqual(a[aKeys[i]], b[aKeys[i]])) {
+          continue;
+        } else {
+          return false;
+        }
+      } else if (Object.prototype.toString.call(a[aKeys[i]]) === '[object Date]' && Object.prototype.toString.call(b[aKeys[i]]) === '[object Date]') {
+        if (a[aKeys[i]].valueOf() !== b[aKeys[i]].valueOf()) {
+          return false;
+        } else {
+          continue;
+        }
+      } else {
+        if (a[aKeys[i]] !== b[aKeys[i]]) {
+          return false;
+        } else {
+          continue;
         }
       }
-
-      if (a[aKeys[i]] !== b[aKeys[i]]) return false;
     }
-
     return true;
   }
 
@@ -131,13 +148,14 @@ class otherStuff {
    * @param {*} b 
    */
   static isEqual(a, b) {
-    if (typeof(a) !== typeof(b)) return false;
+    if (Object.prototype.toString.call(a) !== Object.prototype.toString.call(b)) return false;
 
-    if (typeof(a) === 'object') {
-      if (Array.isArray(a) && Array.isArray(b)) {
-        return this.arraysEqual(a, b);
-      }
-      return this.objectsEqual(a, b);      
+    if (Array.isArray(a) && Array.isArray(b)) {
+      return this.arraysEqual(a, b);
+    }
+
+    if (Object.prototype.toString.call(a) === '[object Object]') {
+      return this.objectsEqual(a, b);
     }
 
     return a === b;
