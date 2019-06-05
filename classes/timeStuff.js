@@ -189,7 +189,6 @@ class TimeStuff {
 
   //#region Conversions etc
 
-
   static utcToLocal(datetime) {
     const offset = new Date().getTimezoneOffset() / 60;
     const newD = this.subtractHours(datetime, offset);
@@ -229,8 +228,67 @@ class TimeStuff {
     return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}T${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
   }
 
+  //#endregion
+
+  //#region Daylight Savings
+
+  /**
+   * Returns UTC Date of when daylight savings will start (for Australia)
+   * @param {number} year year to get date for
+   */
+  static getDaylightSavingsStart(year) {
+    // 2am first Sunday October
+    let d = new Date();
+    let date = 1;
+    d.setFullYear(year);
+    d.setMonth(9);
+    d.setDate(date);
+    while (d.getDay() !== 0) {
+      d.setDate(++date);
+    }
+    return new Date(year, 9, date, 2, 0);
+  }
+
+  /**
+   * Returns UTC Date of when daylight savings will end (for Australia)
+   * @param {number} year year to get date for
+   */
+  static getDaylightSavingsEnd(year) {
+    // 3am first Sunday April
+    let d = new Date();
+    let date = 1;
+    d.setFullYear(year);
+    d.setMonth(3);
+    d.setDate(date);
+    while (d.getDay() !== 0) {
+      d.setDate(++date);
+    }
+    return new Date(year, 3, date, 3, 0);
+  }
+
+  /**
+   * Returns a Date in UTC in the local time for given timezone
+   * @param {string} timezone Currently only Australia/Hobart
+   * @param {Date} datetime 
+   */
+  static getTimeInTimeZone(timezone, datetime) {
+    switch (timezone) {
+      case 'Australia/Hobart':
+        if (datetime.valueOf() > this.getDaylightSavingsStart(datetime.getFullYear()) || datetime.valueOf() < this.getDaylightSavingsEnd(datetime.getFullYear())) {
+          // Daylight savings
+          return this.addHours(datetime, 11);
+        } else {
+          // Standard time
+          return this.addHours(datetime, 10);
+        }
+      default:
+    }
+  }
 
   //#endregion
+
+
+
 }
 
 TimeStuff.prototype.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
