@@ -276,10 +276,12 @@ class TimeStuff {
       case 'Australia/Hobart':
         if (datetime.valueOf() > this.getDaylightSavingsStart(datetime.getFullYear()) || datetime.valueOf() < this.getDaylightSavingsEnd(datetime.getFullYear())) {
           // Daylight savings
-          return this.addHours(datetime, 11);
+          let s = this.addHours(datetime, 11).toISOString();
+          return s.replace('T', ' ').replace(/-/g, '').slice(0, -5)
         } else {
           // Standard time
-          return this.addHours(datetime, 10);
+          let s = this.addHours(datetime, 10).toISOString();
+          return s.replace('T', ' ').replace(/-/g, '').slice(0, -5)
         }
       default:
     }
