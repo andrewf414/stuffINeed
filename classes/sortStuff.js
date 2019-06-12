@@ -78,6 +78,34 @@ class SortStuff {
   static heapSort(arr) {
 
   }
+
+
+  /**
+   * Sorts an array of values or objects
+   * @param {[<any>]} arr Array to be sorted
+   * @param {*} key Key (if sorting an object) to sort by
+   * @param {*} asc true is default, false to sort descending
+   */
+  static sort(arr, key, asc = true) {
+    if (asc) {
+      return arr.sort((a, b) => {
+        if ((a[key] || a) > (b[key] || b)) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    } else {
+      return arr.sort((a, b) => {
+        if ((a[key] || a) > (b[key] || b)) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+    }
+    
+  }
 }
 
 module.exports = SortStuff;
