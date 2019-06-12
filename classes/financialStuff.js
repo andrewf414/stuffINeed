@@ -42,7 +42,7 @@ class FinancialStuff {
     let outstanding = pv;
     let payment = Math.max(pay, this.pmt(pv, r, n, y));
     for (let j = 0, x = periodY * n; j < x; j++) {
-      let interest = this.interestOnly(pv, r) / n;
+      let interest = this.interestOnly(pv, r, n);
       i += interest;
       P += (payment - interest);
       pv = pv - payment + interest;
