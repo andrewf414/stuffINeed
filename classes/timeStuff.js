@@ -139,51 +139,84 @@ class TimeStuff {
    * Returns the seconds between two dates
    * {seconds, minutes, hours, days, weeks, years}
    * @param {Date} startDate 
-   * @param {Date} endDate 
+   * @param {Date} endDate
+   * @param {string} unit Unit to return value in (obj, y, w, d, h, m, s)
    */
-  static timeBetween(startDate, endDate) {
-    let timeElapsed = {
-      seconds: this.secondsBetween(startDate, endDate),
-      minutes: 0,
-      hours: 0,
-      days: 0,
-      weeks: 0,
-      years: 0
-    }
-    
-    if (timeElapsed.seconds < 60) {
-      return timeElapsed;
-    }
-    timeElapsed.minutes = Math.floor(timeElapsed.seconds/60);
-    timeElapsed.seconds = timeElapsed.seconds % 60;
+  static timeBetween(startDate, endDate, unit) {
+    let retVal;
+    // Get time difference in each unit
+    const seconds = this.secondsBetween(startDate, endDate);
+    const minutes = seconds/60;
+    const hours = seconds/3600;
+    const days = seconds/86400;
+    const weeks = seconds/604800;
+    const years = seconds/31557600; // 365.25 days
 
-    if (timeElapsed.minutes < 60) {
-      return timeElapsed;
+    switch (unit) {
+      case 'obj':
+        retVal = {
+          years: Math.floor(years),
+          weeks: Math.floor((seconds % 31557600) / 604800),
+          days: Math.floor(days % 7),
+          hours: Math.floor(hours % 24),
+          minutes: Math.floor(minutes % 60),
+          seconds: seconds % 60,
+        }
+        break;
+      case 'y':
+        retVal = years;
+        break;
+      case 'w':
+        retVal = weeks;
+        break;
+      case 'd':
+        retVal = days;
+        break;
+      case 'h':
+        retVal = hours;
+        break;
+      case 'm':
+        retVal = minutes;
+        break;
+      case 's':
+        retVal = seconds;
+        break;
+      default:
+      retVal = {
+        seconds: seconds % 60,
+        minutes: Math.floor(minutes % 60),
+        hours: Math.floor(hours % 24),
+        days: Math.floor(days % 7),
+        weeks: Math.floor(weeks % 52),
+        years: Math.floor(years)
+      }
     }
-    timeElapsed.hours = Math.floor(timeElapsed.minutes/60);
-    timeElapsed.minutes = timeElapsed.minutes % 60;
-
-    if (timeElapsed.hours < 24) {
-      return timeElapsed;
-    }
-    timeElapsed.days = Math.floor(timeElapsed.hours/24);
-    timeElapsed.hours = timeElapsed.hours % 24;
-
-    if (timeElapsed.days < 7) {
-      return timeElapsed;
-    }
-    timeElapsed.weeks = Math.floor(timeElapsed.days/7);
-    timeElapsed.days = timeElapsed.days % 7;
-
-    if (timeElapsed.weeks < 52) {
-      return timeElapsed;
-    }
-    timeElapsed.years = Math.floor(timeElapsed.weeks/52);
-    timeElapsed.weeks = timeElapsed.weeks % 52;
-
-    return timeElapsed;
+    return retVal;
   }
   
+
+  /**
+   * Takes two 24hr strings and calculates the time between them in minutes
+   * @param {string} start 24 hours time, must be 4 digits
+   * @param {string} end 24 hours time, must be 4 digits
+   */
+  static calculateTime(start, end) {
+    start = start.replace(':', '');
+    end = end.replace(':', '');
+    let sh = parseInt(start.substr(0,2));
+    let sm = parseInt(start.substr(2,2));
+    let eh = parseInt(end.substr(0,2));
+    let em = parseInt(end.substr(2,2));
+    if (sh > eh) {
+      // gone over midnight
+      let diff = em > sm ? (eh + 24 - sh) * 60 + (em - sm) : (eh + 24 - sh - 1) * 60 + (sm - em);
+      return diff;
+    } else {
+      // same day
+      let diff = em > sm ? (eh - sh) * 60 + (em - sm) : (eh - sh - 1) * 60 + (sm - em);
+      return diff;
+    }
+  }
 
   //#endregion
 
