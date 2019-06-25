@@ -209,11 +209,11 @@ class TimeStuff {
     let em = parseInt(end.substr(2,2));
     if (sh > eh) {
       // gone over midnight
-      let diff = em > sm ? (eh + 24 - sh) * 60 + (em - sm) : (eh + 24 - sh - 1) * 60 + (sm - em);
+      let diff = em >= sm ? (eh + 24 - sh) * 60 + (em - sm) : (eh + 24 - sh - 1) * 60 + (sm - em);
       return diff;
     } else {
       // same day
-      let diff = em > sm ? (eh - sh) * 60 + (em - sm) : (eh - sh - 1) * 60 + (sm - em);
+      let diff = em >= sm ? (eh - sh) * 60 + (em - sm) : (eh - sh - 1) * 60 + (sm - em);
       return diff;
     }
   }
