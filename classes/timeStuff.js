@@ -300,7 +300,7 @@ class TimeStuff {
   }
 
   /**
-   * Returns a Date in UTC in the local time for given timezone
+   * Returns a Date given in UTC in the local time for given timezone in the format yyyymmdd hh:mm:ss
    * @param {string} timezone Currently only Australia/Hobart
    * @param {Date} datetime 
    */
