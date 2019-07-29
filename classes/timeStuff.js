@@ -13,9 +13,9 @@ class TimeStuff {
   static subtractDays(date, days, startOfDay = true) {
     const timeToSubtract = days * 86400000; // 24 * 60 * 60 * 1000;
     const newDate = new Date(date.valueOf() - timeToSubtract);
-    
-    if(startOfDay) {
-      return new Date(newDate.setHours(0,0,0,0));
+
+    if (startOfDay) {
+      return new Date(newDate.setHours(0, 0, 0, 0));
     } else {
       return newDate;
     }
@@ -30,9 +30,9 @@ class TimeStuff {
   static addDays(date, days, startOfDay = true) {
     const timeToAdd = days * 86400000; // 24 * 60 * 60 * 1000;
     const newDate = new Date(date.valueOf() + timeToAdd);
-    
-    if(startOfDay) {
-      return new Date(newDate.setHours(0,0,0,0));
+
+    if (startOfDay) {
+      return new Date(newDate.setHours(0, 0, 0, 0));
     } else {
       return newDate;
     }
@@ -89,7 +89,7 @@ class TimeStuff {
   //#endregion
 
   //#region Time between
-  
+
   /**
    * Returns the complete seconds between two dates
    * @param {Date} startDate 
@@ -146,11 +146,11 @@ class TimeStuff {
     let retVal;
     // Get time difference in each unit
     const seconds = this.secondsBetween(startDate, endDate);
-    const minutes = seconds/60;
-    const hours = seconds/3600;
-    const days = seconds/86400;
-    const weeks = seconds/604800;
-    const years = seconds/31557600; // 365.25 days
+    const minutes = seconds / 60;
+    const hours = seconds / 3600;
+    const days = seconds / 86400;
+    const weeks = seconds / 604800;
+    const years = seconds / 31557600; // 365.25 days
 
     switch (unit) {
       case 'obj':
@@ -182,18 +182,18 @@ class TimeStuff {
         retVal = seconds;
         break;
       default:
-      retVal = {
-        seconds: seconds % 60,
-        minutes: Math.floor(minutes % 60),
-        hours: Math.floor(hours % 24),
-        days: Math.floor(days % 7),
-        weeks: Math.floor(weeks % 52),
-        years: Math.floor(years)
-      }
+        retVal = {
+          seconds: seconds % 60,
+          minutes: Math.floor(minutes % 60),
+          hours: Math.floor(hours % 24),
+          days: Math.floor(days % 7),
+          weeks: Math.floor(weeks % 52),
+          years: Math.floor(years)
+        }
     }
     return retVal;
   }
-  
+
 
   /**
    * Takes two 24hr strings and calculates the time between them in minutes
@@ -203,10 +203,10 @@ class TimeStuff {
   static calculateTime(start, end) {
     start = start.replace(':', '');
     end = end.replace(':', '');
-    let sh = parseInt(start.substr(0,2));
-    let sm = parseInt(start.substr(2,2));
-    let eh = parseInt(end.substr(0,2));
-    let em = parseInt(end.substr(2,2));
+    let sh = parseInt(start.substr(0, 2));
+    let sm = parseInt(start.substr(2, 2));
+    let eh = parseInt(end.substr(0, 2));
+    let em = parseInt(end.substr(2, 2));
     if (sh > eh) {
       // gone over midnight
       let diff = em >= sm ? (eh + 24 - sh) * 60 + (em - sm) : (eh + 24 - sh - 1) * 60 + (sm - em);
@@ -225,14 +225,14 @@ class TimeStuff {
   static utcToLocal(datetime) {
     const offset = new Date().getTimezoneOffset() / 60;
     const newD = this.subtractHours(datetime, offset);
-   
+
     return newD;
   }
 
   static localToUtc(datetime) {
     const offset = new Date().getTimezoneOffset() / 60;
     const newD = this.addHours(datetime, offset);
-   
+
     return newD;
   }
 
