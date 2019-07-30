@@ -143,6 +143,8 @@ class TimeStuff {
    * @param {string} unit Unit to return value in (obj, y, w, d, h, m, s)
    */
   static timeBetween(startDate, endDate, unit) {
+    if (Object.prototype.toString.call(startDate) !== '[object Date]' || Object.prototype.toString.call(endDate) !== '[object Date]') return null;
+
     let retVal;
     // Get time difference in each unit
     const seconds = this.secondsBetween(startDate, endDate);
