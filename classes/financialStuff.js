@@ -24,8 +24,26 @@ class FinancialStuff {
    * @param {*} n Periods in a year
    */
   static interestOnly(pv, r, n) {
-    return (pv * r/n);
+    return (pv * r / n);
   }
+
+  /**
+  * Returns an object with principal and interest components of pmt - {p: <number>, i: <number>}
+  * @param pv - presesnt value
+  * @param r - rate as decimal, i.e. .03 is 3%
+  * @param n - payments per year (i.e. 12 is month, 26 fortnightly etc)
+  * @param y - years of the loan
+  */
+  static pmtComponents(pv, r, n, y) {
+    let pmt = this.pmt(pv, r, n, y);
+    let i = this.interestOnly(pv, r, n);
+    return {
+      pmt: pmt,
+      p: pmt - i,
+      i: i
+    }
+  }
+
 
   /**
    * Calculate how much principal and interest will be paid with regular payments and how much will remain outstanding from principal
