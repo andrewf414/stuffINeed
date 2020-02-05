@@ -136,7 +136,7 @@ class TimeStuff {
     }
 
     /**
-     * Returns the seconds between two dates
+     * Returns the time in given unit between two dates
      * {seconds, minutes, hours, days, weeks, years}
      * @param {Date} startDate 
      * @param {Date} endDate
@@ -344,7 +344,21 @@ class TimeStuff {
         return date;
     }
 
-
+    static isValidDate(d) {
+        if (Object.prototype.toString.call(d) === "[object Date]") {
+            // it is a date
+            if (isNaN(d.valueOf())) {
+                // date is not valid
+                return false;
+            } else {
+                // date is valid
+                return true;
+            }
+        } else {
+            // not a date
+            return false;
+        }
+    }
 
 }
 
