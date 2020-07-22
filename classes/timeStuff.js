@@ -159,9 +159,13 @@ class TimeStuff {
 
     let monthDiff = endDate.getMonth() - startDate.getMonth();
     let yearDiff = endDate.getFullYear() - startDate.getFullYear();
+    let dayDiff = endDate.getDate() - startDate.getDate();
     if (monthDiff < 0) {
       yearDiff--;
       monthDiff += 12;
+    }
+    if (dayDiff < 0) {
+        monthDiff--;
     }
 
     switch (unit) {
@@ -178,10 +182,11 @@ class TimeStuff {
       case "years":
         retVal = years;
         break;
-      case "yearsmonths":
+      case "ymd":
         retVal = {
           years: yearDiff,
           months: monthDiff,
+          days: dayDiff < 0 ? this.daysInMonth(endDate.getMonth()) + dayDiff : dayDiff
         };
         break;
       case "months":
