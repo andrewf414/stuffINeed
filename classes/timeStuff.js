@@ -186,7 +186,7 @@ class TimeStuff {
         retVal = {
           years: yearDiff,
           months: monthDiff,
-          days: dayDiff < 0 ? this.daysInMonth(endDate.getMonth()) + dayDiff : dayDiff
+          days: dayDiff < 0 ? this.daysInMonth(endDate.getMonth(), endDate.getFullYear()) + dayDiff : dayDiff
         };
         break;
       case "months":
