@@ -1,20 +1,18 @@
-
 "use strict";
 
 class FinancialStuff {
-
   // Mortgage stuff
   /**
-  * Calculate interest and principal payment for loan
-  * @param pv - presesnt value
-  * @param r - rate as decimal, i.e. .03 is 3%
-  * @param n - payments per year (i.e. 12 is month, 26 fortnightly etc)
-  * @param y - years of the loan
-  */
+   * Calculate interest and principal payment for loan
+   * @param pv - presesnt value
+   * @param r - rate as decimal, i.e. .03 is 3%
+   * @param n - payments per year (i.e. 12 is month, 26 fortnightly etc)
+   * @param y - years of the loan
+   */
   static pmt(pv, r, n, y) {
     r = r / n;
     n = n * y;
-    return r * pv / (1 - Math.pow((1 + r), -n));
+    return (r * pv) / (1 - Math.pow(1 + r, -n));
   }
 
   /**
@@ -24,26 +22,25 @@ class FinancialStuff {
    * @param {*} n Periods in a year
    */
   static interestOnly(pv, r, n) {
-    return (pv * r / n);
+    return (pv * r) / n;
   }
 
   /**
-  * Returns an object with principal and interest components of pmt - {p: <number>, i: <number>}
-  * @param pv - presesnt value
-  * @param r - rate as decimal, i.e. .03 is 3%
-  * @param n - payments per year (i.e. 12 is month, 26 fortnightly etc)
-  * @param y - years of the loan
-  */
+   * Returns an object with principal and interest components of pmt - {p: <number>, i: <number>}
+   * @param pv - presesnt value
+   * @param r - rate as decimal, i.e. .03 is 3%
+   * @param n - payments per year (i.e. 12 is month, 26 fortnightly etc)
+   * @param y - years of the loan
+   */
   static pmtComponents(pv, r, n, y) {
     let pmt = this.pmt(pv, r, n, y);
     let i = this.interestOnly(pv, r, n);
     return {
       pmt: pmt,
       p: pmt - i,
-      i: i
-    }
+      i: i,
+    };
   }
-
 
   /**
    * Calculate how much principal and interest will be paid with regular payments and how much will remain outstanding from principal
@@ -62,7 +59,7 @@ class FinancialStuff {
     for (let j = 0, x = periodY * n; j < x; j++) {
       let interest = this.interestOnly(pv, r, n);
       i += interest;
-      P += (payment - interest);
+      P += payment - interest;
       pv = pv - payment + interest;
       // if (P >= outstanding) return `Paid fully in ${j/26} years`
     }
@@ -71,7 +68,7 @@ class FinancialStuff {
       interestPaid: i,
       outstanding: outstanding - P,
       paymentsOf: payment,
-    }
+    };
   }
 
   /**
@@ -81,7 +78,7 @@ class FinancialStuff {
    */
   static stampDuty(state, value) {
     switch (state.toLowerCase()) {
-      case 'tas':
+      case "tas":
         const rates = [
           { low: 0, high: 3000, base: 50, rate: 0, per: 100 },
           { low: 30000, high: 25000, base: 50, rate: 1.75, per: 100 },
@@ -89,18 +86,20 @@ class FinancialStuff {
           { low: 75000, high: 200000, base: 1560, rate: 3.5, per: 100 },
           { low: 200000, high: 375000, base: 5935, rate: 4, per: 100 },
           { low: 375000, high: 750000, base: 12935, rate: 4.25, per: 100 },
-          { low: 750000, high: Infinity, base: 27810, rate: 4.5, per: 100 }
-        ]
+          { low: 750000, high: Infinity, base: 27810, rate: 4.5, per: 100 },
+        ];
         let duty = 0;
         for (let i = 0, n = rates.length; i < n; i++) {
           if (value >= rates[i].low && value < rates[i].high) {
-            duty = rates[i].base + Math.ceil((value - rates[i].low) / rates[i].per) * rates[i].rate;
+            duty =
+              rates[i].base +
+              Math.ceil((value - rates[i].low) / rates[i].per) * rates[i].rate;
             break;
           }
         }
         return duty;
       default:
-        return 'Not added yet';
+        return "Not added yet";
     }
   }
 
@@ -112,7 +111,7 @@ class FinancialStuff {
    * @param {*} fees Additional fees such as soliciitor, discharge of mortgage etc
    */
   static profit(mortgage, salePrice, commissionRate, fees) {
-    return salePrice - (salePrice * commissionRate) - mortgage - fees
+    return salePrice - salePrice * commissionRate - mortgage - fees;
   }
 
   /**
@@ -123,7 +122,40 @@ class FinancialStuff {
    * @param {*} years Years invested
    */
   static compoundInterest(principal, rate, npa, years) {
-    return (principal * ((1 + rate / npa) ** (npa * years)));
+    return principal * (1 + rate / npa) ** (npa * years);
+  }
+
+  /**
+   *
+   * @param {int} y years
+   * @param {int} pv present value
+   * @param {decimal} r rate as decimal (e.g. 0.05 = 5%)
+   * @param {int} n payments per year (12, 26, 52)
+   * @param {int} target defaults to 0
+   */
+  static requiredPaymentAmountForTargetPrincipalAndTime(
+    y,
+    pv,
+    r,
+    n,
+    target = 0
+  ) {
+    let toPay = pv - target;
+    let pmt = this.pmt(toPay, r, n, y).toFixed(2);
+    let i = 0;
+    let P = 0;
+    for (let j = 0, x = y * n; j < x; j++) {
+      let interest = this.interestOnly(pv, r, n);
+      i += interest;
+      P += pmt - interest;
+      pv = pv - pmt + interest;
+    }
+    return {
+      principalPaid: P,
+      interestPaid: i,
+      outstanding: toPay - P,
+      paymentsOf: pmt,
+    };
   }
 }
 
