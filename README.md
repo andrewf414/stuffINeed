@@ -1,4 +1,5 @@
 # Stuff I Need
+
 This package is a combination of things that I find useful to have, borne out of copying a function or two here and there from one project to another. It's still a work in progress, but I will continue to add to it as I can and need, please feel free to suggest additions that you would like to see.
 
 The package is broken up into a series of classes that are targeted towards being a group of related functions. Currently there are:
@@ -21,12 +22,23 @@ The package is broken up into a series of classes that are targeted towards bein
 There are still a number of things that are incomplete (like sort) but already some useful pieces here. I regularly use the time stuff in particular.
 
 ### Install
+
 $ npm i @fitzy/stuffineed
+
 ### Usage
+
 ```
 import  *  as  sin  from  '@fitzy/stuffineed';
 
 sin.time.localToUtc(some date object);
 ```
+
 ### Tests
+
 npm run test
+
+### Using ad-hoc with Node.js
+
+1. open up node however you like (e.g. in cmd type node)
+2. require whichever module you want, `const fin = require('./classes/financialStuff')`
+3. use it, e.g. fin.interestOnly(pv, r, n)

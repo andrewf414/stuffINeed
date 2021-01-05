@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "coenraads.bracket-pair-colorizer-2",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "vscode-icons-team.vscode-icons",
+    "wesbos.theme-cobalt2",
+    "kamikillerto.vscode-colorize"
+  ]
+}

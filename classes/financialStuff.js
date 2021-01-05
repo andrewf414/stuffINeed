@@ -126,7 +126,7 @@ class FinancialStuff {
   }
 
   /**
-   *
+   * Calculate the payments needed to be made to reach a target value of loan
    * @param {int} y years
    * @param {int} pv present value
    * @param {decimal} r rate as decimal (e.g. 0.05 = 5%)
