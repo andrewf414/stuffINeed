@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": "andrewf414/stuffIneed",
   "devDependencies": {
-    "jest": "^23.6.0",
+    "jest": "^29.3.1",
     "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2"
   },
